@@ -200,7 +200,7 @@ def coreset_section(rows, base_rows):
 
 
 # ---------------- gallery ----------------
-def gallery():
+def gallery(dark: bool = False):
     from defectscope.data import image_transform, IMAGENET_MEAN, IMAGENET_STD
     preds = ROOT / "eval" / "preds"
     files = sorted(preds.glob("wide_resnet50_layer2-layer3_0.1_*.npz"))
@@ -219,7 +219,8 @@ def gallery():
         i = bad[np.argsort(d["scores"][bad])[len(bad) // 2]]
         picks.append((cat, str(d["paths"][i]), d["maps"][i].astype(np.float32),
                       float(d["scores"][i]), d["maps"].astype(np.float32)))
-    fig, axes = plt.subplots(2, len(picks), figsize=(3.0 * len(picks), 6.4))
+    bg, ink, ink2 = ("#131c2e", "#ffffff", "#cbd5e1") if dark else (SURFACE, INK, INK2)
+    fig, axes = plt.subplots(2, len(picks), figsize=(3.0 * len(picks), 6.4), facecolor=bg)
     for j, (cat, path, amap, score, allmaps) in enumerate(picks):
         x = tf(Image.open(path).convert("RGB")).permute(1, 2, 0).numpy() * s + m
         x = x.clip(0, 1)
@@ -238,12 +239,12 @@ def gallery():
         for a in axes[:, j]:
             a.axis("off")
     axes[0, 0].text(-0.08, 0.5, "input + true\ndefect outline", transform=axes[0, 0].transAxes,
-                    rotation=90, ha="right", va="center", color=INK2, fontsize=10)
+                    rotation=90, ha="right", va="center", color=ink2, fontsize=10)
     axes[1, 0].text(-0.08, 0.5, "PatchCore\nheatmap", transform=axes[1, 0].transAxes,
-                    rotation=90, ha="right", va="center", color=INK2, fontsize=10)
+                    rotation=90, ha="right", va="center", color=ink2, fontsize=10)
     fig.tight_layout()
-    out = FIG / "heatmap_gallery.png"
-    fig.savefig(out, dpi=170)
+    out = FIG / ("heatmap_gallery_dark.png" if dark else "heatmap_gallery.png")
+    fig.savefig(out, dpi=170, facecolor=bg)
     plt.close(fig)
     return ("## 4. Heatmap gallery (WideResNet-50)\n\nFor each category the defective test image with the "
             "**median** anomaly score is shown (representative, not the best case). Red outline = "
@@ -288,6 +289,7 @@ def main():
         sec1, layer_section(load("layers"), base), coreset_section(load("coreset"), base),
         gallery(), demo_section(),
     ]
+    gallery(dark=True)  # deck version
     (ROOT / "eval" / "results.md").write_text("\n".join(p for p in parts if p), encoding="utf-8")
     print("wrote eval/results.md and", sorted(x.name for x in FIG.glob("*.png")))
 

@@ -19,9 +19,9 @@ const THEME = {
     dk2: "131C2E",   // card fill
     lt2: "CBD5E1",   // body text on dark
     accent1: "14B8A6", // teal: the one accent
-    accent2: "F59E0B", // amber: rare emphasis
-    accent3: "2A78D6", // chart series 1
-    accent4: "EB6834", // chart series 2
+    accent2: "5EEAD4", // light teal: emphasis (single-accent palette, no orange)
+    accent3: "14B8A6", // chart series 1 (teal)
+    accent4: "94A3B8", // chart series 2 (slate)
     accent5: "94A3B8", // muted captions
     accent6: "22304A", // card border
     hlink: "5EEAD4",
@@ -101,24 +101,24 @@ pres.addSection({ title: "Hook" });
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: ix + 0.25, y: iy + img - 0.8, w: 3.1, h: 0.5, rectRadius: 0.1,
     fill: { color: C.text1, transparency: 10 }, line: { type: "none" } });
   s.addText("● Defect found here", { x: ix + 0.25, y: iy + img - 0.8, w: 3.1, h: 0.5, fontSize: 16, bold: true,
-    color: C.accent2, align: "center", valign: "middle", margin: 0, isTextBox: true });
+    color: C.background1, align: "center", valign: "middle", margin: 0, isTextBox: true });
   const tw = ix - M - 0.35;
   s.addText("AI VISUAL INSPECTION", { x: M, y: 1.2, w: tw, h: 0.45, fontFace: "Arial", fontSize: 18, bold: true,
     color: C.accent1, charSpacing: 3, margin: 0, isTextBox: true });
   s.addText("DefectScope", { x: M, y: 1.75, w: tw, h: 1.15, fontFace: "Arial", fontSize: 66, bold: true,
     color: C.background1, margin: 0, valign: "top", isTextBox: true, objectName: "Product name" });
   s.addText([
-    { text: "Trained only on good parts.", options: { color: C.background1, breakLine: true } },
-    { text: "Catches defects it has never seen.", options: { color: C.accent1 } },
+    { text: "Spots scratches and dents.", options: { color: C.background1, breakLine: true } },
+    { text: "No defect photos needed.", options: { color: C.accent1 } },
   ], { x: M, y: 3.1, w: tw, h: 1.7, fontFace: "Arial", fontSize: 28, bold: true, margin: 0, valign: "top",
        isTextBox: true, objectName: "USP" });
   const chips = ["No defect labels", "Pixel heatmap", "Runs on CPU"];
   let cx = M;
   chips.forEach((t) => {
     const cw = 0.1 * t.length + 0.5;
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: cx, y: 5.15, w: cw, h: 0.55, rectRadius: 0.27,
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: cx, y: 5.0, w: cw, h: 0.55, rectRadius: 0.27,
       fill: { color: C.text2 }, line: { color: C.accent1, width: 1.25 } });
-    s.addText(t, { x: cx, y: 5.15, w: cw, h: 0.55, fontSize: 17, bold: true, color: C.background1,
+    s.addText(t, { x: cx, y: 5.0, w: cw, h: 0.55, fontSize: 17, bold: true, color: C.background1,
       align: "center", valign: "middle", margin: 0, isTextBox: true });
     cx += cw + 0.15;
   });
@@ -147,7 +147,7 @@ pres.addSection({ title: "Problem" });
   });
   s.addText([
     { text: "What every line does have: ", options: { color: C.background2 } },
-    { text: "plenty of photos of good parts.", options: { color: C.accent2, bold: true } },
+    { text: "plenty of photos of good parts.", options: { color: C.accent1, bold: true } },
   ], { x: M, y: 5.8, w: 12.1, h: 0.7, fontSize: 24, margin: 0, isTextBox: true });
   s.addNotes("Defects are rare by design, so you can't collect hundreds of labelled examples. " +
     "Flip the problem: learn what good looks like.");
@@ -260,7 +260,7 @@ pres.addSection({ title: "Results" });
   s.addText("For each category: the defective test image with the median score. Red outline = ground-truth defect.",
     { x: M, y: 1.65, w: 12.1, h: 0.4, fontSize: 14, color: C.background2, margin: 0, isTextBox: true });
   const box = { x: M, y: 2.2, w: 12.13, h: 4.6 };
-  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { ...box, rectRadius: 0.12, fill: { color: "FCFCFB" }, line: { type: "none" },
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { ...box, rectRadius: 0.12, fill: { color: C.text2 }, line: { color: C.accent6, width: 1 },
     objectName: "Gallery frame" });
   s.addImage({ ...fit(D.assets.gallery, box.x + 0.15, box.y + 0.1, box.w - 0.3, box.h - 0.2),
     objectName: "Heatmap gallery", altText: "Input images with true defect outlines above PatchCore heatmaps" });
