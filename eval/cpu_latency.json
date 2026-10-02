@@ -1,0 +1,9 @@
+{
+  "category": "screw",
+  "bank_size": 2258,
+  "n": 30,
+  "threads": 2,
+  "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+  "median_ms": 50.15634999999996,
+  "p90_ms": 58.21801000000049
+}

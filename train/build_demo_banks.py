@@ -44,6 +44,7 @@ def main():
     ap.add_argument("--holdout", type=float, default=0.1)
     ap.add_argument("--out", default=str(ROOT / "models" / "demo"))
     ap.add_argument("--samples", type=int, default=3, help="sample test images to copy per category")
+    ap.add_argument("--results", default=str(ROOT / "eval" / "demo_threshold_results.json"))
     args = ap.parse_args()
     Path(args.out).mkdir(parents=True, exist_ok=True)
     report = {}
@@ -91,7 +92,7 @@ def main():
         for x in goods[:1] + bads[: args.samples - 1]:
             shutil.copy(x["path"], sdir / f"{x['defect']}_{Path(x['path']).name}")
 
-    out_json = ROOT / "eval" / "demo_threshold_results.json"
+    out_json = Path(args.results)
     out_json.write_text(json.dumps({"backbone": args.backbone, "coreset": args.coreset,
                                     "results": report}, indent=2))
     print("wrote", out_json)

@@ -1,0 +1,56 @@
+[backbones] skip wide_resnet50 ('layer2', 'layer3') 0.1 bottle (done)
+[backbones] skip wide_resnet50 ('layer2', 'layer3') 0.1 screw (done)
+[backbones] skip wide_resnet50 ('layer2', 'layer3') 0.1 carpet (done)
+[backbones] skip wide_resnet50 ('layer2', 'layer3') 0.1 metal_nut (done)
+[backbones] skip wide_resnet50 ('layer2', 'layer3') 0.1 transistor (done)
+[backbones] skip resnet18 ('layer2', 'layer3') 0.1 bottle (done)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[backbones] resnet18       layer2,layer3    cs=0.1   screw       img=0.9631 pix=0.9918 bank=25088 t_core=113.18s 133.5ms/img
+[backbones] resnet18       layer2,layer3    cs=0.1   carpet      img=0.9852 pix=0.9880 bank=21952 t_core=89.72s 307.9ms/img
+[backbones] resnet18       layer2,layer3    cs=0.1   metal_nut   img=0.9985 pix=0.9785 bank=17248 t_core=54.19s 194.0ms/img
+[backbones] resnet18       layer2,layer3    cs=0.1   transistor  img=0.9983 pix=0.9711 bank=16700 t_core=50.38s 150.2ms/img
+[backbones] convnext_tiny  stage1,stage2    cs=0.1   bottle      img=1.0000 pix=0.9731 bank=16386 t_core=47.73s 160.0ms/img
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[backbones] convnext_tiny  stage1,stage2    cs=0.1   screw       img=0.9252 pix=0.9599 bank=25088 t_core=111.41s 102.1ms/img
+[backbones] convnext_tiny  stage1,stage2    cs=0.1   carpet      img=1.0000 pix=0.9884 bank=21952 t_core=86.18s 116.0ms/img
+[backbones] convnext_tiny  stage1,stage2    cs=0.1   metal_nut   img=0.9790 pix=0.9668 bank=17248 t_core=52.38s 158.2ms/img
+[backbones] convnext_tiny  stage1,stage2    cs=0.1   transistor  img=0.9967 pix=0.9804 bank=16700 t_core=50.17s 169.9ms/img
+[backbones] dinov2_vits14  block7,block10   cs=0.1   bottle      img=1.0000 pix=0.9772 bank=5351 t_core=5.4s 142.8ms/img
+[backbones] dinov2_vits14  block7,block10   cs=0.1   screw       img=0.8106 pix=0.8765 bank=8192 t_core=12.28s 80.8ms/img
+[backbones] dinov2_vits14  block7,block10   cs=0.1   carpet      img=0.9984 pix=0.9923 bank=7168 t_core=9.59s 134.3ms/img
+[backbones] dinov2_vits14  block7,block10   cs=0.1   metal_nut   img=0.9990 pix=0.9732 bank=5632 t_core=6.01s 107.6ms/img
+[backbones] dinov2_vits14  block7,block10   cs=0.1   transistor  img=0.9883 pix=0.9763 bank=5453 t_core=5.59s 124.7ms/img
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[layers] wide_resnet50  layer2           cs=0.1   bottle      img=1.0000 pix=0.9872 bank=16386 t_core=45.76s 141.0ms/img
+[layers] wide_resnet50  layer2           cs=0.1   screw       img=0.9719 pix=0.9933 bank=25088 t_core=107.01s 84.3ms/img
+[layers] wide_resnet50  layer2           cs=0.1   carpet      img=0.9723 pix=0.9875 bank=21952 t_core=83.2s 119.9ms/img
+[layers] wide_resnet50  layer2           cs=0.1   metal_nut   img=0.9985 pix=0.9844 bank=17248 t_core=52.04s 105.5ms/img
+[layers] wide_resnet50  layer2           cs=0.1   transistor  img=0.9896 pix=0.9105 bank=16700 t_core=48.93s 126.2ms/img
+[layers] wide_resnet50  layer3           cs=0.1   bottle      img=1.0000 pix=0.9747 bank=4097 t_core=3.27s 143.4ms/img
+[layers] wide_resnet50  layer3           cs=0.1   screw       img=0.8934 pix=0.9444 bank=6272 t_core=7.32s 78.5ms/img
+[layers] wide_resnet50  layer3           cs=0.1   carpet      img=0.9936 pix=0.9848 bank=5488 t_core=5.68s 111.3ms/img
+[layers] wide_resnet50  layer3           cs=0.1   metal_nut   img=0.9907 pix=0.9808 bank=4312 t_core=3.58s 103.7ms/img
+[layers] wide_resnet50  layer3           cs=0.1   transistor  img=0.9983 pix=0.9809 bank=4175 t_core=3.37s 126.1ms/img
+[layers] wide_resnet50  layer3,layer4    cs=0.1   bottle      img=0.9897 pix=0.9283 bank=4097 t_core=3.35s 157.8ms/img
+[layers] wide_resnet50  layer3,layer4    cs=0.1   screw       img=0.6673 pix=0.8303 bank=6272 t_core=7.29s 84.1ms/img
+[layers] wide_resnet50  layer3,layer4    cs=0.1   carpet      img=0.9964 pix=0.9430 bank=5488 t_core=5.72s 117.3ms/img
+[layers] wide_resnet50  layer3,layer4    cs=0.1   metal_nut   img=0.7067 pix=0.9197 bank=4312 t_core=3.64s 111.3ms/img
+[layers] wide_resnet50  layer3,layer4    cs=0.1   transistor  img=0.9017 pix=0.9445 bank=4175 t_core=3.39s 129.6ms/img
+[coreset] wide_resnet50  layer2,layer3    cs=0.01  bottle      img=1.0000 pix=0.9828 bank=1639 t_core=5.2s 172.8ms/img
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[coreset] wide_resnet50  layer2,layer3    cs=0.01  screw       img=0.9447 pix=0.9800 bank=2509 t_core=11.84s 90.5ms/img
+[coreset] wide_resnet50  layer2,layer3    cs=0.01  carpet      img=0.9900 pix=0.9880 bank=2196 t_core=8.8s 116.0ms/img
+[coreset] wide_resnet50  layer2,layer3    cs=0.01  metal_nut   img=0.9990 pix=0.9846 bank=1725 t_core=5.55s 105.1ms/img
+[coreset] wide_resnet50  layer2,layer3    cs=0.01  transistor  img=1.0000 pix=0.9765 bank=1670 t_core=5.2s 127.5ms/img
+[coreset] wide_resnet50  layer2,layer3    cs=0.25  bottle      img=1.0000 pix=0.9834 bank=40964 t_core=120.39s 202.2ms/img
+[coreset] wide_resnet50  layer2,layer3    cs=0.25  screw       img=0.9588 pix=0.9872 bank=62720 t_core=279.58s 155.3ms/img
+[coreset] wide_resnet50  layer2,layer3    cs=0.25  carpet      img=0.9896 pix=0.9880 bank=54880 t_core=207.81s 163.6ms/img
+[coreset] wide_resnet50  layer2,layer3    cs=0.25  metal_nut   img=0.9985 pix=0.9848 bank=43120 t_core=128.74s 152.9ms/img
+[coreset] wide_resnet50  layer2,layer3    cs=0.25  transistor  img=0.9996 pix=0.9766 bank=41748 t_core=122.5s 167.2ms/img
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[coreset] resnet18       layer2,layer3    cs=0.01  bottle      img=1.0000 pix=0.9774 bank=1639 t_core=4.87s 154.2ms/img
+[coreset] resnet18       layer2,layer3    cs=0.01  screw       img=0.9535 pix=0.9871 bank=2509 t_core=10.99s 71.8ms/img
+[coreset] resnet18       layer2,layer3    cs=0.01  carpet      img=0.9835 pix=0.9873 bank=2196 t_core=8.55s 103.8ms/img
+[coreset] resnet18       layer2,layer3    cs=0.01  metal_nut   img=0.9980 pix=0.9753 bank=1725 t_core=5.2s 104.3ms/img
+[coreset] resnet18       layer2,layer3    cs=0.01  transistor  img=0.9950 pix=0.9594 bank=1670 t_core=5.05s 123.0ms/img
+ALL_DONE

@@ -1,0 +1,8 @@
+{
+  "browser": "Microsoft Edge (Playwright), ONNX Runtime Web wasm",
+  "samples": 15,
+  "max_score_rel_diff": 0.04192899547820169,
+  "verdict_flips": 0,
+  "median_ms": 169.89999961853027,
+  "note": "ms includes preprocessing + ONNX inference, first run of each product includes warm-up"
+}

@@ -1,4 +1,4 @@
-"""Measure CPU inference latency of the deployed demo model (models/demo/<category>.pt).
+"""Measure CPU inference latency of the demo model (models/web/<category>.pt).
 
 Writes eval/cpu_latency.json. Mirrors the app: 2 torch threads, one image at a time.
 """
@@ -22,7 +22,7 @@ from defectscope.data import image_transform, list_samples  # noqa: E402
 
 def main(category="screw", n=30, threads=2):
     torch.set_num_threads(threads)
-    model = PatchCore.load(ROOT / "models" / "demo" / f"{category}.pt", device="cpu")
+    model = PatchCore.load(ROOT / "models" / "web" / f"{category}.pt", device="cpu")
     tf = image_transform()
     paths = [s["path"] for s in list_samples(ROOT / "data" / "mvtec", category, "test")][:n]
     xs = [tf(Image.open(p).convert("RGB"))[None] for p in paths]

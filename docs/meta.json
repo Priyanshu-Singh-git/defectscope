@@ -1,0 +1,171 @@
+{
+  "model": "patchcore_resnet18.onnx",
+  "input": 224,
+  "resize": 256,
+  "grid": [
+    28,
+    28
+  ],
+  "products": [
+    {
+      "key": "bottle",
+      "name": "Bottle",
+      "bank": "banks/bottle.bin",
+      "n": 1474,
+      "dim": 384,
+      "threshold": 1.939731478691101,
+      "samples": [
+        {
+          "file": "samples/bottle_broken_large_000.jpg",
+          "label": "broken large",
+          "py_score": 3.3039186000823975
+        },
+        {
+          "file": "samples/bottle_broken_small_000.jpg",
+          "label": "broken small",
+          "py_score": 2.4559333324432373
+        },
+        {
+          "file": "samples/bottle_good_000.jpg",
+          "label": "good",
+          "py_score": 1.4997469186782837
+        }
+      ],
+      "test": {
+        "test_n": 83,
+        "test_defective": 63,
+        "recall_defects": 0.9841269841269841,
+        "false_positive_rate": 0.0,
+        "image_auroc": 1.0
+      }
+    },
+    {
+      "key": "screw",
+      "name": "Screw",
+      "bank": "banks/screw.bin",
+      "n": 2258,
+      "dim": 384,
+      "threshold": 1.913785457611084,
+      "samples": [
+        {
+          "file": "samples/screw_good_000.jpg",
+          "label": "good",
+          "py_score": 1.6489187479019165
+        },
+        {
+          "file": "samples/screw_manipulated_front_000.jpg",
+          "label": "manipulated front",
+          "py_score": 1.8378833532333374
+        },
+        {
+          "file": "samples/screw_scratch_head_000.jpg",
+          "label": "scratch head",
+          "py_score": 2.1237897872924805
+        }
+      ],
+      "test": {
+        "test_n": 160,
+        "test_defective": 119,
+        "recall_defects": 0.7563025210084033,
+        "false_positive_rate": 0.0,
+        "image_auroc": 0.9491699118671859
+      }
+    },
+    {
+      "key": "carpet",
+      "name": "Carpet",
+      "bank": "banks/carpet.bin",
+      "n": 1976,
+      "dim": 384,
+      "threshold": 1.346055269241333,
+      "samples": [
+        {
+          "file": "samples/carpet_color_000.jpg",
+          "label": "color",
+          "py_score": 2.2655396461486816
+        },
+        {
+          "file": "samples/carpet_cut_000.jpg",
+          "label": "cut",
+          "py_score": 2.5852410793304443
+        },
+        {
+          "file": "samples/carpet_good_000.jpg",
+          "label": "good",
+          "py_score": 1.1980777978897095
+        }
+      ],
+      "test": {
+        "test_n": 117,
+        "test_defective": 89,
+        "recall_defects": 0.9887640449438202,
+        "false_positive_rate": 0.25,
+        "image_auroc": 0.9839486356340289
+      }
+    },
+    {
+      "key": "metal_nut",
+      "name": "Metal nut",
+      "bank": "banks/metal_nut.bin",
+      "n": 1553,
+      "dim": 384,
+      "threshold": 2.309844493865967,
+      "samples": [
+        {
+          "file": "samples/metal_nut_bent_000.jpg",
+          "label": "bent",
+          "py_score": 2.992072105407715
+        },
+        {
+          "file": "samples/metal_nut_color_000.jpg",
+          "label": "color",
+          "py_score": 2.761592388153076
+        },
+        {
+          "file": "samples/metal_nut_good_000.jpg",
+          "label": "good",
+          "py_score": 2.1139400005340576
+        }
+      ],
+      "test": {
+        "test_n": 115,
+        "test_defective": 93,
+        "recall_defects": 0.978494623655914,
+        "false_positive_rate": 0.045454545454545456,
+        "image_auroc": 0.9965786901270772
+      }
+    },
+    {
+      "key": "transistor",
+      "name": "Transistor",
+      "bank": "banks/transistor.bin",
+      "n": 1506,
+      "dim": 384,
+      "threshold": 2.1751925945281982,
+      "samples": [
+        {
+          "file": "samples/transistor_bent_lead_000.jpg",
+          "label": "bent lead",
+          "py_score": 2.450376510620117
+        },
+        {
+          "file": "samples/transistor_cut_lead_000.jpg",
+          "label": "cut lead",
+          "py_score": 2.598430871963501
+        },
+        {
+          "file": "samples/transistor_good_000.jpg",
+          "label": "good",
+          "py_score": 1.9480736255645752
+        }
+      ],
+      "test": {
+        "test_n": 100,
+        "test_defective": 40,
+        "recall_defects": 1.0,
+        "false_positive_rate": 0.03333333333333333,
+        "image_auroc": 0.9987499999999999
+      }
+    }
+  ]
+}

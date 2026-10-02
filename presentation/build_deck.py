@@ -85,7 +85,7 @@ def build(demo_url, repo_url, video_url=None):
                 float(np.mean([by[b][c]["pixel_auroc"] for c in CATS])))
             for b in by if len(by[b]) == len(CATS)}
     best = max(mean, key=lambda b: mean[b][0] + mean[b][1])
-    demo = json.loads((ROOT / "eval" / "demo_threshold_results.json").read_text())
+    demo = json.loads((ROOT / "eval" / "web_threshold_results.json").read_text())  # = live demo models
     dres = demo["results"].values()
     cpu = json.loads((ROOT / "eval" / "cpu_latency.json").read_text())
     fit_s = float(np.mean([by[demo["backbone"]][c]["extract_s"] + by[demo["backbone"]][c]["coreset_s"]
@@ -143,7 +143,7 @@ def build(demo_url, repo_url, video_url=None):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--demo-url", default="https://huggingface.co/spaces/SinghPriyanshu/defectscope")
+    ap.add_argument("--demo-url", default="https://priyanshu-singh-git.github.io/defectscope/")
     ap.add_argument("--video-url", default=None)
     ap.add_argument("--repo-url", default="https://github.com/Priyanshu-Singh-git/defectscope")
     a = ap.parse_args()

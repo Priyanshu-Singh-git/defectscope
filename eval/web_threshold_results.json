@@ -1,0 +1,71 @@
+{
+  "backbone": "resnet18",
+  "coreset": 0.01,
+  "results": {
+    "bottle": {
+      "threshold": 1.939731478691101,
+      "holdout_good_n": 21,
+      "holdout_score_mean": 1.476765751838684,
+      "holdout_score_std": 0.12256360799074173,
+      "test_n": 83,
+      "test_defective": 63,
+      "image_auroc": 1.0,
+      "accuracy": 0.9879518072289156,
+      "recall_defects": 0.9841269841269841,
+      "false_positive_rate": 0.0,
+      "bank_size": 1474
+    },
+    "screw": {
+      "threshold": 1.913785457611084,
+      "holdout_good_n": 32,
+      "holdout_score_mean": 1.7530176639556885,
+      "holdout_score_std": 0.07007672637701035,
+      "test_n": 160,
+      "test_defective": 119,
+      "image_auroc": 0.9491699118671859,
+      "accuracy": 0.81875,
+      "recall_defects": 0.7563025210084033,
+      "false_positive_rate": 0.0,
+      "bank_size": 2258
+    },
+    "carpet": {
+      "threshold": 1.346055269241333,
+      "holdout_good_n": 28,
+      "holdout_score_mean": 1.2256109714508057,
+      "holdout_score_std": 0.050620414316654205,
+      "test_n": 117,
+      "test_defective": 89,
+      "image_auroc": 0.9839486356340289,
+      "accuracy": 0.9316239316239316,
+      "recall_defects": 0.9887640449438202,
+      "false_positive_rate": 0.25,
+      "bank_size": 1976
+    },
+    "metal_nut": {
+      "threshold": 2.309844493865967,
+      "holdout_good_n": 22,
+      "holdout_score_mean": 2.115571975708008,
+      "holdout_score_std": 0.07434418052434921,
+      "test_n": 115,
+      "test_defective": 93,
+      "image_auroc": 0.9965786901270772,
+      "accuracy": 0.9739130434782609,
+      "recall_defects": 0.978494623655914,
+      "false_positive_rate": 0.045454545454545456,
+      "bank_size": 1553
+    },
+    "transistor": {
+      "threshold": 2.1751925945281982,
+      "holdout_good_n": 21,
+      "holdout_score_mean": 1.977141261100769,
+      "holdout_score_std": 0.06795451790094376,
+      "test_n": 100,
+      "test_defective": 40,
+      "image_auroc": 0.9987499999999999,
+      "accuracy": 0.98,
+      "recall_defects": 1.0,
+      "false_positive_rate": 0.03333333333333333,
+      "bank_size": 1506
+    }
+  }
+}

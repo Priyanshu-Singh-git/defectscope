@@ -17,10 +17,10 @@ sys.path.insert(0, str(ROOT / "src"))
 from defectscope import PatchCore  # noqa: E402
 from defectscope.data import IMAGENET_MEAN, IMAGENET_STD, image_transform  # noqa: E402
 
-MODELS = ROOT / "models" / "demo"
+MODELS = ROOT / "models" / "web"
 SAMPLES = ROOT / "assets" / "samples"
-RESULTS = ROOT / "eval" / "demo_threshold_results.json"
-UPWORK_URL = "https://www.upwork.com/freelancers/"  # TODO: replace with your profile URL
+RESULTS = ROOT / "eval" / "web_threshold_results.json"
+CONTACT_URL = "https://github.com/Priyanshu-Singh-git"  # swap for the Upwork profile URL when available
 MAX_UPLOAD_MB = 8
 LABELS = {"bottle": "Bottle", "screw": "Screw", "carpet": "Carpet (texture)",
           "metal_nut": "Metal nut", "transistor": "Transistor"}
@@ -41,9 +41,10 @@ def load_results() -> dict:
 
 def overlay(img: np.ndarray, amap: np.ndarray, thr: float) -> np.ndarray:
     """Jet heatmap of score/threshold, blended where the map is elevated."""
-    norm = np.clip(amap / thr, 0, 1.5) / 1.5
+    r = amap / thr  # 1.0 = the pass/fail threshold
+    norm = np.clip((r - 0.7) / 0.6, 0, 1)  # colour range 0.7x..1.3x threshold
     heat = matplotlib.colormaps["jet"](norm)[..., :3]
-    alpha = np.clip((amap / thr - 0.5) / 0.5, 0, 1)[..., None] * 0.6
+    alpha = np.clip((r - 0.75) / 0.35, 0, 1)[..., None] * 0.65  # only clearly abnormal areas
     return (img * (1 - alpha) + heat * alpha).clip(0, 1)
 
 
@@ -58,15 +59,20 @@ st.sidebar.title("🔍 DefectScope")
 st.sidebar.caption("Finds defects after seeing only good parts.")
 cats = [c for c in LABELS if (MODELS / f"{c}.pt").exists()]
 if not cats:
-    st.error("No memory banks found in models/demo. Run train/build_demo_banks.py first.")
+    st.error("No memory banks found in models/web. Run train/build_demo_banks.py --coreset 0.01 --out models/web first.")
     st.stop()
-category = st.sidebar.selectbox("Product line", cats, format_func=LABELS.get)
+qp = st.query_params  # deep links, e.g. ?product=metal_nut&sample=bent
+category = st.sidebar.selectbox("Product line", cats, format_func=LABELS.get,
+                                index=cats.index(qp["product"]) if qp.get("product") in cats else 0)
 sample_files = sorted((SAMPLES / category).glob("*.png"))
 source = st.sidebar.radio("Input", ["Sample image", "Upload your own"])
 img_pil = None
 if source == "Sample image" and sample_files:
-    pick = st.sidebar.selectbox("Sample", sample_files,
-                                format_func=lambda p: p.stem.split("_")[0].replace("good", "good (no defect)"))
+    want = qp.get("sample", "")
+    start = next((i for i, f in enumerate(sample_files) if want and f.stem.startswith(want)), 0)
+    pick = st.sidebar.selectbox("Sample", sample_files, index=start,
+                                format_func=lambda p: p.stem.rsplit("_", 1)[0].replace("_", " ")
+                                .replace("good", "good (no defect)"))
     img_pil = Image.open(pick).convert("RGB")
 else:
     up = st.sidebar.file_uploader("Image (PNG/JPG, max 8 MB)", type=["png", "jpg", "jpeg"])
@@ -80,9 +86,9 @@ else:
                        "selected line's normal appearance.")
 
 # ---------------- main ----------------
-st.title("DefectScope: label-free defect detection")
-st.write("Trained **only on defect-free images**. It flags anything that doesn't look like a "
-         "normal part and shows where. PatchCore (CVPR 2022) re-implementation, CPU inference.")
+st.title("DefectScope: spots defects, no defect photos needed")
+st.write("Set up from photos of **good parts only**. It flags anything that doesn't look like a "
+         "normal part and shows where. Pick a sample or upload your own photo.")
 
 if img_pil is None:
     st.info("Pick a sample or upload an image in the sidebar.")
@@ -136,6 +142,6 @@ with st.expander("How it works"):
         "Full benchmark (WideResNet-50, ConvNeXt, DINOv2, layer and coreset ablations) is in the repo.")
 
 st.divider()
-st.caption(f"Built by **Priyanshu Singh** · [Hire me on Upwork]({UPWORK_URL}) · "
+st.caption(f"Built by **Priyanshu Singh** · [Contact / hire me]({CONTACT_URL}) · "
            "Demo data: MVTec AD (CC BY-NC-SA 4.0, non-commercial); for production, "
            "the model is fitted on your own good parts.")
