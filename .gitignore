@@ -8,3 +8,4 @@ __pycache__/
 presentation/node_modules/
 .cache/
 models/demo/
+human_value_report/
