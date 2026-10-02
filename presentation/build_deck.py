@@ -25,6 +25,17 @@ OUT = ROOT / "presentation"
 FIG = ROOT / "assets" / "figures"
 sys.path.insert(0, str(ROOT / "src"))
 CATS = ["bottle", "screw", "carpet", "metal_nut", "transistor"]
+PRETTY = {"bottle": "Bottle", "screw": "Screw", "carpet": "Carpet", "metal_nut": "Metal nut",
+          "transistor": "Transistor"}
+# Published per-category MVTec AD results from Intel anomalib v1.2.0 (model READMEs), used only
+# for the comparison slide. Source URLs are printed on the slide.
+ANOMALIB = {
+    "PatchCore WideResNet-50": {"image": [.984, 1.0, .994, .960, 1.0], "pixel": [.988, .984, .989, .989, .981]},
+    "PatchCore ResNet-18": {"image": [.970, 1.0, .991, .943, .996], "pixel": [.986, .981, .986, .991, .974]},
+    "PaDiM WideResNet-50": {"image": [.995, .999, .989, .845, .976], "pixel": [.991, .985, .982, .988, .976]},
+}  # order: carpet, bottle, metal_nut, screw, transistor
+ANOMALIB_CATS = ["carpet", "bottle", "metal_nut", "screw", "transistor"]
+ANOMALIB_SRC = "github.com/open-edge-platform/anomalib (v1.2.0 model benchmarks)"
 LABEL = {"wide_resnet50": "WideResNet-50", "resnet18": "ResNet-18",
          "convnext_tiny": "ConvNeXt-Tiny", "dinov2_vits14": "DINOv2 ViT-S/14"}
 
@@ -65,7 +76,7 @@ def qr(url):
     q.make_image(fill_color="#0b1220", back_color="white").convert("RGB").save(OUT / "qr.png")
 
 
-def build(demo_url, repo_url):
+def build(demo_url, repo_url, video_url=None):
     base = load_rows("backbones")
     by = defaultdict(dict)
     for r in base:
@@ -106,6 +117,20 @@ def build(demo_url, repo_url):
                  "accuracy": float(np.mean([r["accuracy"] for r in dres]))},
         "cpu": cpu, "fit_s": fit_s, "n_train_min": min(n_train), "n_train_max": max(n_train),
         "coreset": coreset_rows,
+        "video_url": video_url,
+        "per_product": [{"name": PRETTY[c], "recall": float(demo["results"][c]["recall_defects"]),
+                         "fpr": float(demo["results"][c]["false_positive_rate"]),
+                         "n_bad": int(demo["results"][c]["test_defective"]),
+                         "n_good": int(demo["results"][c]["test_n"] - demo["results"][c]["test_defective"])}
+                        for c in CATS if c in demo["results"]],
+        "compare": [{"name": f"DefectScope {LABEL[b]} (mine)", "mine": True,
+                     "image": mean[b][0], "pixel": mean[b][1],
+                     "screw": float(by[b]["screw"]["image_auroc"])}
+                    for b in ("wide_resnet50", "resnet18") if b in mean]
+                   + [{"name": f"Intel anomalib {k}", "mine": False,
+                       "image": float(np.mean(v["image"])), "pixel": float(np.mean(v["pixel"])),
+                       "screw": v["image"][ANOMALIB_CATS.index("screw")]} for k, v in ANOMALIB.items()],
+        "compare_src": ANOMALIB_SRC,
         "assets": {"hero_input": str(OUT / "hero_input.png"), "hero_heatmap": str(OUT / "hero_heatmap.png"),
                    "shot": str(FIG / "demo_screenshot.png"), "gallery": str(FIG / "heatmap_gallery.png"),
                    "qr": str(OUT / "qr.png")},
@@ -118,7 +143,8 @@ def build(demo_url, repo_url):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--demo-url", default="https://defectscope.streamlit.app")
+    ap.add_argument("--demo-url", default="https://huggingface.co/spaces/SinghPriyanshu/defectscope")
+    ap.add_argument("--video-url", default=None)
     ap.add_argument("--repo-url", default="https://github.com/Priyanshu-Singh-git/defectscope")
     a = ap.parse_args()
-    build(a.demo_url, a.repo_url)
+    build(a.demo_url, a.repo_url, a.video_url)
