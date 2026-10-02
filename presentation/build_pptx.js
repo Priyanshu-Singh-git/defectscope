@@ -79,7 +79,7 @@ pres.defineSlideMaster({
     { placeholder: { options: { name: "title", type: "title", x: M, y: 0.82, w: 12.1, h: 0.95,
         fontFace: "Arial", fontSize: 34, bold: true, color: C.text1, margin: 0, valign: "top", align: "left" },
       text: "" } },
-    { text: { text: "DefectScope · label-free defect detection",
+    { text: { text: "DefectScope · AI visual inspection",
         options: { x: M, y: 7.0, w: 8, h: 0.3, fontSize: 11, color: C.accent5, margin: 0 } } },
   ],
   slideNumber: { x: 12.1, y: 7.0, w: 0.63, h: 0.3, fontSize: 11, color: C.accent5, align: "right" },
@@ -143,7 +143,7 @@ pres.addSection({ title: "Hook" });
 // ================= 2. problem (business wording) =================
 pres.addSection({ title: "Problem" });
 {
-  const s = content("Problem", "The problem", "Defects are rare. That's what makes AI inspection hard.");
+  const s = content("Problem", "The problem", "Rare defects make AI inspection hard.");
   const items = [
     ["Normal AI needs defect photos", "A standard AI model must see hundreds of examples of every defect type. A good production line simply doesn't have them."],
     ["New defects slip through", "A scratch, crack or contamination nobody planned for goes straight past a model that was never shown it."],
@@ -169,7 +169,7 @@ pres.addSection({ title: "Problem" });
 // ================= 3. live demo =================
 pres.addSection({ title: "Solution" });
 {
-  const s = content("Solution", "Try it yourself", "Upload a photo. Get a pass/fail verdict and see where.");
+  const s = content("Solution", "Try it yourself", "Upload a photo. See pass/fail and where.");
   const box = { x: M, y: 1.95, w: 7.6, h: 4.85 };
   card(s, box.x, box.y, box.w, box.h, "Screenshot frame");
   s.addImage({ ...fit(D.assets.shot, box.x + 0.15, box.y + 0.15, box.w - 0.3, box.h - 0.3),
@@ -196,7 +196,7 @@ pres.addSection({ title: "Solution" });
 pres.addSection({ title: "Results" });
 {
   const s = content("Results", "Results in plain numbers", "What it caught, what it wrongly rejected, how fast.");
-  const ppm = Math.floor(60000 / D.cpu.median_ms);
+  const ppm = (Math.round(60000 / D.cpu.median_ms / 100) * 100).toLocaleString("en-US");
   const stats = [
     [pct(D.demo.recall), "of defective parts caught", "average over 5 product types"],
     [pct(D.demo.fpr), "of good parts wrongly rejected", "the false alarms that cost you money"],

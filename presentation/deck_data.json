@@ -1,0 +1,170 @@
+{
+  "demo_url": "https://priyanshu-singh-git.github.io/defectscope/",
+  "repo_url": "https://github.com/Priyanshu-Singh-git/defectscope",
+  "hero_defect": "color",
+  "backbones": [
+    {
+      "label": "WideResNet-50",
+      "image": 0.9904241718620908,
+      "pixel": 0.9843837643118972
+    },
+    {
+      "label": "ResNet-18",
+      "image": 0.9890253479464274,
+      "pixel": 0.981547683731519
+    },
+    {
+      "label": "ConvNeXt-Tiny",
+      "image": 0.9801679273812379,
+      "pixel": 0.9737193340095424
+    },
+    {
+      "label": "DINOv2 ViT-S/14",
+      "image": 0.959273521897779,
+      "pixel": 0.9591062728946783
+    }
+  ],
+  "best": {
+    "label": "WideResNet-50",
+    "image": 0.9904241718620908,
+    "pixel": 0.9843837643118972
+  },
+  "demo": {
+    "backbone": "ResNet-18",
+    "recall": 0.9415376347470243,
+    "fpr": 0.06575757575757576,
+    "accuracy": 0.9384477564662216
+  },
+  "cpu": {
+    "category": "screw",
+    "bank_size": 2258,
+    "n": 30,
+    "threads": 2,
+    "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "median_ms": 50.15634999999996,
+    "p90_ms": 58.21801000000049
+  },
+  "fit_s": 89.726,
+  "n_train_min": 209,
+  "n_train_max": 320,
+  "coreset": [
+    {
+      "backbone": "WideResNet-50",
+      "ratio": 0.01,
+      "image": 0.9867302342620891,
+      "pixel": 0.9823747721001613,
+      "bank_mb": 3.9890944
+    },
+    {
+      "backbone": "WideResNet-50",
+      "ratio": 0.1,
+      "image": 0.9904241718620908,
+      "pixel": 0.9843837643118972,
+      "bank_mb": 39.884390399999994
+    },
+    {
+      "backbone": "WideResNet-50",
+      "ratio": 0.25,
+      "image": 0.9892973408488228,
+      "pixel": 0.9839994423304252,
+      "bank_mb": 99.7097472
+    },
+    {
+      "backbone": "ResNet-18",
+      "ratio": 0.01,
+      "image": 0.9860132779735264,
+      "pixel": 0.9773029207636142,
+      "bank_mb": 1.4959104
+    },
+    {
+      "backbone": "ResNet-18",
+      "ratio": 0.1,
+      "image": 0.9890253479464274,
+      "pixel": 0.981547683731519,
+      "bank_mb": 14.9566464
+    }
+  ],
+  "video_url": null,
+  "per_product": [
+    {
+      "name": "Bottle",
+      "recall": 0.9841269841269841,
+      "fpr": 0.0,
+      "n_bad": 63,
+      "n_good": 20
+    },
+    {
+      "name": "Screw",
+      "recall": 0.7563025210084033,
+      "fpr": 0.0,
+      "n_bad": 119,
+      "n_good": 41
+    },
+    {
+      "name": "Carpet",
+      "recall": 0.9887640449438202,
+      "fpr": 0.25,
+      "n_bad": 89,
+      "n_good": 28
+    },
+    {
+      "name": "Metal nut",
+      "recall": 0.978494623655914,
+      "fpr": 0.045454545454545456,
+      "n_bad": 93,
+      "n_good": 22
+    },
+    {
+      "name": "Transistor",
+      "recall": 1.0,
+      "fpr": 0.03333333333333333,
+      "n_bad": 40,
+      "n_good": 60
+    }
+  ],
+  "compare": [
+    {
+      "name": "DefectScope WideResNet-50 (mine)",
+      "mine": true,
+      "image": 0.9904241718620908,
+      "pixel": 0.9843837643118972,
+      "screw": 0.968846075015372
+    },
+    {
+      "name": "DefectScope ResNet-18 (mine)",
+      "mine": true,
+      "image": 0.9890253479464274,
+      "pixel": 0.981547683731519,
+      "screw": 0.9631071940971511
+    },
+    {
+      "name": "Intel anomalib PatchCore WideResNet-50",
+      "mine": false,
+      "image": 0.9875999999999999,
+      "pixel": 0.9862,
+      "screw": 0.96
+    },
+    {
+      "name": "Intel anomalib PatchCore ResNet-18",
+      "mine": false,
+      "image": 0.9800000000000001,
+      "pixel": 0.9836,
+      "screw": 0.943
+    },
+    {
+      "name": "Intel anomalib PaDiM WideResNet-50",
+      "mine": false,
+      "image": 0.9608000000000001,
+      "pixel": 0.9844000000000002,
+      "screw": 0.845
+    }
+  ],
+  "compare_src": "github.com/open-edge-platform/anomalib (v1.2.0 model benchmarks)",
+  "assets": {
+    "hero_input": "F:\\18_days_18_product\\day01_defectscope\\presentation\\hero_input.png",
+    "hero_heatmap": "F:\\18_days_18_product\\day01_defectscope\\presentation\\hero_heatmap.png",
+    "shot": "F:\\18_days_18_product\\day01_defectscope\\assets\\figures\\demo_screenshot.png",
+    "gallery": "F:\\18_days_18_product\\day01_defectscope\\assets\\figures\\heatmap_gallery.png",
+    "qr": "F:\\18_days_18_product\\day01_defectscope\\presentation\\qr.png"
+  }
+}
