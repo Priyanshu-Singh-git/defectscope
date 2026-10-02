@@ -90,35 +90,38 @@ function numBadge(s, x, y, n, name) {
 const pct = (v) => `${Math.round(v * 100)}%`;
 const f3 = (v) => v.toFixed(3);
 
-// ================= 1. hook cover =================
+// ================= 1. thumbnail cover =================
+// Doubles as the Upwork portfolio thumbnail: product name huge, one USP line, one visual.
 pres.addSection({ title: "Hook" });
 {
   const s = pres.addSlide({ masterName: "COVER", sectionTitle: "Hook" });
-  s.addText("INDUSTRIAL VISION · PATCHCORE RE-IMPLEMENTATION", { x: M, y: 0.55, w: 9, h: 0.4, fontFace: "Arial",
-    fontSize: 14, bold: true, color: C.accent1, charSpacing: 2, margin: 0, isTextBox: true });
+  const img = 5.4, ix = W - img - 0.5, iy = (7.5 - img) / 2;
+  s.addImage({ path: D.assets.hero_heatmap, x: ix, y: iy, w: img, h: img, objectName: "Hero heatmap",
+    altText: `Metal nut with a ${D.hero_defect} defect, heatmap glowing over the defect` });
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: ix + 0.25, y: iy + img - 0.8, w: 3.1, h: 0.5, rectRadius: 0.1,
+    fill: { color: C.text1, transparency: 10 }, line: { type: "none" } });
+  s.addText("● Defect found here", { x: ix + 0.25, y: iy + img - 0.8, w: 3.1, h: 0.5, fontSize: 16, bold: true,
+    color: C.accent2, align: "center", valign: "middle", margin: 0, isTextBox: true });
+  const tw = ix - M - 0.35;
+  s.addText("AI VISUAL INSPECTION", { x: M, y: 1.2, w: tw, h: 0.45, fontFace: "Arial", fontSize: 18, bold: true,
+    color: C.accent1, charSpacing: 3, margin: 0, isTextBox: true });
+  s.addText("DefectScope", { x: M, y: 1.75, w: tw, h: 1.15, fontFace: "Arial", fontSize: 66, bold: true,
+    color: C.background1, margin: 0, valign: "top", isTextBox: true, objectName: "Product name" });
   s.addText([
-    { text: "It finds defects it has never seen.", options: { color: C.background1, breakLine: true } },
-    { text: "It was only ever shown good parts.", options: { color: C.accent1 } },
-  ], { x: M, y: 1.0, w: 12.1, h: 1.9, fontFace: "Arial", fontSize: 46, bold: true, margin: 0,
-       valign: "top", isTextBox: true, objectName: "Hook headline" });
-  const sz = 3.55, y = 3.3;
-  s.addImage({ path: D.assets.hero_input, x: M, y, w: sz, h: sz, rounding: false, objectName: "Input image",
-    altText: `Metal nut with a ${D.hero_defect} defect` });
-  s.addImage({ path: D.assets.hero_heatmap, x: M + sz + 0.3, y, w: sz, h: sz, objectName: "Heatmap",
-    altText: "Anomaly heatmap glowing over the defect" });
-  for (const [x, t] of [[M, "Input"], [M + sz + 0.3, "What the model sees"]]) {
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: x + 0.15, y: y + 0.15, w: t.length * 0.1 + 0.4, h: 0.38,
-      rectRadius: 0.08, fill: { color: C.text1, transparency: 15 }, line: { type: "none" } });
-    s.addText(t, { x: x + 0.15, y: y + 0.15, w: t.length * 0.1 + 0.4, h: 0.38, fontSize: 13, bold: true,
-      color: C.background1, align: "center", valign: "middle", margin: 0, isTextBox: true });
-  }
-  const sx = M + 2 * sz + 1.0;
-  s.addText(f3(D.best.image), { x: sx, y: 3.75, w: 4.2, h: 1.2, fontFace: "Arial", fontSize: 72, bold: true,
-    color: C.background1, margin: 0, isTextBox: true, objectName: "Headline metric" });
-  s.addText(`mean image AUROC on 5 MVTec AD categories (${D.best.label})`, { x: sx, y: 4.95, w: 4.1, h: 0.75,
-    fontSize: 16, color: C.background2, margin: 0, isTextBox: true });
-  s.addText("Zero defect labels · pixel heatmaps · runs on CPU", { x: sx, y: 5.95, w: 4.1, h: 0.6,
-    fontSize: 15, bold: true, color: C.accent1, margin: 0, isTextBox: true });
+    { text: "Trained only on good parts.", options: { color: C.background1, breakLine: true } },
+    { text: "Catches defects it has never seen.", options: { color: C.accent1 } },
+  ], { x: M, y: 3.1, w: tw, h: 1.7, fontFace: "Arial", fontSize: 28, bold: true, margin: 0, valign: "top",
+       isTextBox: true, objectName: "USP" });
+  const chips = ["No defect labels", "Pixel heatmap", "Runs on CPU"];
+  let cx = M;
+  chips.forEach((t) => {
+    const cw = 0.1 * t.length + 0.5;
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: cx, y: 5.15, w: cw, h: 0.55, rectRadius: 0.27,
+      fill: { color: C.text2 }, line: { color: C.accent1, width: 1.25 } });
+    s.addText(t, { x: cx, y: 5.15, w: cw, h: 0.55, fontSize: 17, bold: true, color: C.background1,
+      align: "center", valign: "middle", margin: 0, isTextBox: true });
+    cx += cw + 0.15;
+  });
   s.addNotes("0-10s: upload a defective part; the heatmap lights up exactly on the defect. " +
     "Say: it was never shown a single defect, only good parts.");
 }
