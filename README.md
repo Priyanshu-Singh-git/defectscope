@@ -32,8 +32,7 @@ spots. On a real line, both get tuned on the client's own parts before deploymen
 
 ![Detections](assets/figures/heatmap_gallery.png)
 
-*For each product, the defective test photo with the **median** score is shown (representative, not
-cherry-picked). Red outline = ground-truth defect.*
+*For each product, the defective test photo with the **median** score. Red outline = ground-truth defect.*
 
 ## How it works
 

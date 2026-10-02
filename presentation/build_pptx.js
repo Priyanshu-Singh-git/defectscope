@@ -262,7 +262,7 @@ pres.addSection({ title: "Results" });
 
 // ================= 6. gallery =================
 {
-  const s = content("Results", "Real detections", "Representative, not cherry-picked.");
+  const s = content("Results", "Real detections", "Defects found on parts it never saw.");
   s.addText("Per product: the defective test photo with the median score. Red outline = where the real defect is.",
     { x: M, y: 1.65, w: 12.1, h: 0.4, fontSize: 14, color: C.text2, margin: 0, isTextBox: true });
   const box = { x: M, y: 2.2, w: 12.13, h: 4.6 };
@@ -336,7 +336,7 @@ pres.addSection({ title: "Call to action" });
 // ================= 9. appendix: engineering depth =================
 pres.addSection({ title: "Appendix" });
 {
-  const s = content("Appendix", "Appendix · for engineers", "Benchmarked, not guessed.");
+  const s = content("Appendix", "Appendix · for engineers", "The numbers behind it.");
   const labels = D.backbones.map((b) => b.label);
   const lo = Math.min(...D.backbones.flatMap((b) => [b.image, b.pixel]));
   const minV = Math.max(0, Math.floor((lo - 0.01) * 50) / 50);
