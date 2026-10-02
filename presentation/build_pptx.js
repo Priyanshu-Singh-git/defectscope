@@ -3,9 +3,22 @@
 const fs = require("fs");
 const path = require("path");
 const pptxgen = require("pptxgenjs");
-const { applyTheme } = require(process.env.PPTX_SKILL_SCRIPTS
-  ? path.join(process.env.PPTX_SKILL_SCRIPTS, "apply_theme.js")
-  : "./apply_theme.js");
+const JSZip = require(require.resolve("jszip", { paths: [require.resolve("pptxgenjs")] }));
+
+// pptxgenjs writes Office's stock palette into the theme; overwrite it with THEME's colors
+// so scheme colors (and PowerPoint's own color picker) use the deck palette.
+async function applyTheme(file, theme) {
+  const zip = await JSZip.loadAsync(fs.readFileSync(file));
+  const part = "ppt/theme/theme1.xml";
+  let xml = await zip.file(part).async("string");
+  for (const [slot, hex] of Object.entries(theme.colors)) {
+    if (!/^[0-9A-Fa-f]{6}$/.test(hex)) throw new Error(`theme color ${slot}=${hex} is not 6 hex digits`);
+    xml = xml.replace(new RegExp("<a:" + slot + ">[\\s\\S]*?</a:" + slot + ">"), `<a:${slot}><a:srgbClr val="${hex}"/></a:${slot}>`);
+  }
+  xml = xml.replace(/<a:clrScheme name="[^"]*">/, `<a:clrScheme name="${theme.name}">`);
+  zip.file(part, xml);
+  fs.writeFileSync(file, await zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE" }));
+}
 
 const D = JSON.parse(fs.readFileSync(path.join(__dirname, "deck_data.json"), "utf8"));
 
