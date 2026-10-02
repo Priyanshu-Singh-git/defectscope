@@ -107,7 +107,7 @@ def build(demo_url, repo_url):
         "cpu": cpu, "fit_s": fit_s, "n_train_min": min(n_train), "n_train_max": max(n_train),
         "coreset": coreset_rows,
         "assets": {"hero_input": str(OUT / "hero_input.png"), "hero_heatmap": str(OUT / "hero_heatmap.png"),
-                   "shot": str(FIG / "demo_screenshot.png"), "gallery": str(FIG / "heatmap_gallery_dark.png"),
+                   "shot": str(FIG / "demo_screenshot.png"), "gallery": str(FIG / "heatmap_gallery.png"),
                    "qr": str(OUT / "qr.png")},
     }
     (OUT / "deck_data.json").write_text(json.dumps(data, indent=2))
