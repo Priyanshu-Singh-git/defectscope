@@ -21,7 +21,7 @@ from torch.utils.data import DataLoader
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from defectscope import PatchCore  # noqa: E402
+from defectscope import BACKBONES, PatchCore  # noqa: E402
 from defectscope.data import MVTecDataset  # noqa: E402
 from defectscope.metrics import image_auroc, pixel_auroc  # noqa: E402
 
@@ -65,16 +65,26 @@ def main():
     ap.add_argument("--save-banks", default=None, help="dir to save memory banks")
     ap.add_argument("--save-preds", default=None, help="dir to save test scores/maps (npz)")
     ap.add_argument("--device", default=None)
+    ap.add_argument("--skip-done", action="store_true", help="skip configs already in <tag>.jsonl")
     args = ap.parse_args()
 
     out = ROOT / "eval" / "runs" / f"{args.tag}.jsonl"
     out.parent.mkdir(parents=True, exist_ok=True)
     layer_cfgs = [tuple(l.split(",")) for l in args.layers] if args.layers else [None]
+    done = set()
+    if args.skip_done and out.exists():
+        for l in out.read_text().splitlines():
+            r = json.loads(l)
+            done.add((r["backbone"], tuple(r["layers"]), r["coreset_ratio"], r["category"]))
 
     for backbone in args.backbones:
         for layers in layer_cfgs:
             for ratio in args.coreset:
                 for cat in args.categories:
+                    lay = tuple(layers or BACKBONES[backbone]["default"])
+                    if (backbone, lay, ratio, cat) in done:
+                        print(f"[{args.tag}] skip {backbone} {lay} {ratio} {cat} (done)", flush=True)
+                        continue
                     torch.manual_seed(0)
                     model = PatchCore(backbone=backbone, layers=layers, coreset_ratio=ratio,
                                       device=args.device)
